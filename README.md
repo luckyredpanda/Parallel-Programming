@@ -1,5 +1,9 @@
 ## Parallel-Programming
-21ws的Parallel Programming课
+21ws的Parallel Programming的lab
 
-记录作业用
+lab1:
+
+lab2:
+
+final project:
 
