@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" host="gccg201.igd.fraunhofer.de" id="21cefb9d-5ac9-45a2-8765-327a798bd8fc" port="22" nameFormat="DESCRIPTIVE" username="wchen" useOpenSSHConfig="true" />
+    </configs>
+  </component>
+</project>
