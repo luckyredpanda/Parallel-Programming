@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="cb3dfc9a-c66f-47e0-be10-23559f205b78" name="wchen" url="http://gccg201.igd.fraunhofer.de">
+        <fileTransfer rootFolder="/gris/gris-f/homelv/wchen/pmpp/project" accessType="SFTP" host="gccg201.igd.fraunhofer.de" port="22" sshConfigId="21cefb9d-5ac9-45a2-8765-327a798bd8fc" sshConfig="wchen@gccg201.igd.fraunhofer.de:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
