@@ -73,8 +73,12 @@ void test2(PatIntPtr<std::vector<int>, int> s_ptr)
 	auto create = [](int size) {
 		auto vec = std::vector<int>(size);
 		std::generate(vec.begin(), vec.end(), rand);
+<<<<<<< HEAD
 		std::cout << "Original Vector" << std::endl;
 		for(int i = 0; i< size;i++) printf("%d ", vec[i]);
+=======
+//		for(int i = 0; i< size;i++) printf("%d ", vec[i]);
+>>>>>>> a77d234e6b74bb7f832fdbe0a0173793372fbab9
 		return vec;
 	};
 
@@ -84,7 +88,11 @@ void test2(PatIntPtr<std::vector<int>, int> s_ptr)
 		return prom.get_future();
 	};
 
+<<<<<<< HEAD
 	std::cout <<"\n"<< "Testing: " << s_ptr->Name() << std::endl;
+=======
+	std::cout << "Testing: " << s_ptr->Name() << std::endl;
+>>>>>>> a77d234e6b74bb7f832fdbe0a0173793372fbab9
 
 	const auto repeats = 1;
 	const auto size = 10;
@@ -107,7 +115,10 @@ void test2(PatIntPtr<std::vector<int>, int> s_ptr)
 //		for(int j = 0; j<size;j++){
 //			printf("%d",input[j]);
 //		}
+<<<<<<< HEAD
 
+=======
+>>>>>>> a77d234e6b74bb7f832fdbe0a0173793372fbab9
 		outputs.emplace_back(std::move(s_ptr->Compute(std::move(inputs[i]))));
 	}
 
@@ -115,14 +126,20 @@ void test2(PatIntPtr<std::vector<int>, int> s_ptr)
 	{
 		auto &output = outputs[i];
 		auto val = output.get();
+<<<<<<< HEAD
 		std::cout <<"\n"<< "Result:" << std::endl;
+=======
+>>>>>>> a77d234e6b74bb7f832fdbe0a0173793372fbab9
 		printf("%d ",val);
 	}
 
 	s_ptr->Dispose();
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> a77d234e6b74bb7f832fdbe0a0173793372fbab9
 int main(int argument_count, char **arguments)
 {
 	{
@@ -156,9 +173,21 @@ int main(int argument_count, char **arguments)
 
 		test2(comp1);
 
+<<<<<<< HEAD
+=======
+//		auto map = Map<std::vector<int>, std::vector<int>>::create(qs_w1, num_threads_1);
+//		auto map2 = Map<std::vector<int>, std::vector<int>>::create(min_w, num_threads_2);
+//	 	auto comp2 = Composition<std::vector<int>, std::vector<int>, int>::create(map, map2);
+//
+//		test2(comp2);
+>>>>>>> a77d234e6b74bb7f832fdbe0a0173793372fbab9
 
 	}
 	std::cout << "Finished" << std::endl;
 
 	return 0;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> a77d234e6b74bb7f832fdbe0a0173793372fbab9
