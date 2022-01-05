@@ -67,7 +67,8 @@ T min_run(std::vector<T> vector){
     h_partial_min = (T*)malloc( blocksPerGrid*sizeof(T));
 
     for (int i=0; i < vector.size(); ++i)  h_a[i] = vector[i];
-    //for(int i = 0; i< N;i++) printf("%d ", h_a[i]);
+    std::cout <<"\n"<< "Sorted" << std::endl;
+    for(int i = 0; i< N;i++) printf("%d ", h_a[i]);
 
 
     //分配显存空间
@@ -93,6 +94,7 @@ T min_run(std::vector<T> vector){
     return std::move(min);
 }
 template int min_run(std::vector<int> vector);
+
 
 __global__ void ReductionMax(int *d_a, int *d_partial_max)
 {
@@ -132,7 +134,8 @@ T max_run(std::vector<T> vector){
     h_partial_max = (T*)malloc( blocksPerGrid*sizeof(T));
 
     for (int i=0; i < vector.size(); ++i)  h_a[i] = vector[i];
-//    for(int i = 0; i< N;i++) printf("%d ", h_a[i]);
+    std::cout <<"\n"<< "Sorted" << std::endl;
+    for(int i = 0; i< N;i++) printf("%d ", h_a[i]);
 
 
     //分配显存空间

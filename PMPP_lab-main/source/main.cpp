@@ -73,7 +73,8 @@ void test2(PatIntPtr<std::vector<int>, int> s_ptr)
 	auto create = [](int size) {
 		auto vec = std::vector<int>(size);
 		std::generate(vec.begin(), vec.end(), rand);
-//		for(int i = 0; i< size;i++) printf("%d ", vec[i]);
+		std::cout << "Original Vector" << std::endl;
+		for(int i = 0; i< size;i++) printf("%d ", vec[i]);
 		return vec;
 	};
 
@@ -83,7 +84,7 @@ void test2(PatIntPtr<std::vector<int>, int> s_ptr)
 		return prom.get_future();
 	};
 
-	std::cout << "Testing: " << s_ptr->Name() << std::endl;
+	std::cout <<"\n"<< "Testing: " << s_ptr->Name() << std::endl;
 
 	const auto repeats = 1;
 	const auto size = 10;
@@ -106,6 +107,7 @@ void test2(PatIntPtr<std::vector<int>, int> s_ptr)
 //		for(int j = 0; j<size;j++){
 //			printf("%d",input[j]);
 //		}
+
 		outputs.emplace_back(std::move(s_ptr->Compute(std::move(inputs[i]))));
 	}
 
@@ -113,11 +115,13 @@ void test2(PatIntPtr<std::vector<int>, int> s_ptr)
 	{
 		auto &output = outputs[i];
 		auto val = output.get();
+		std::cout <<"\n"<< "Result:" << std::endl;
 		printf("%d ",val);
 	}
 
 	s_ptr->Dispose();
 }
+
 
 int main(int argument_count, char **arguments)
 {
@@ -152,11 +156,6 @@ int main(int argument_count, char **arguments)
 
 		test2(comp1);
 
-//		auto map = Map<std::vector<int>, std::vector<int>>::create(qs_w1, num_threads_1);
-//		auto map2 = Map<std::vector<int>, std::vector<int>>::create(min_w, num_threads_2);
-//	 	auto comp2 = Composition<std::vector<int>, std::vector<int>, int>::create(map, map2);
-//
-//		test2(comp2);
 
 	}
 	std::cout << "Finished" << std::endl;
