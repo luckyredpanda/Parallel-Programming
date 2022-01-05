@@ -67,12 +67,8 @@ T min_run(std::vector<T> vector){
     h_partial_min = (T*)malloc( blocksPerGrid*sizeof(T));
 
     for (int i=0; i < vector.size(); ++i)  h_a[i] = vector[i];
-<<<<<<< HEAD
     std::cout <<"\n"<< "Sorted" << std::endl;
     for(int i = 0; i< N;i++) printf("%d ", h_a[i]);
-=======
-    //for(int i = 0; i< N;i++) printf("%d ", h_a[i]);
->>>>>>> a77d234e6b74bb7f832fdbe0a0173793372fbab9
 
 
     //分配显存空间
@@ -99,10 +95,7 @@ T min_run(std::vector<T> vector){
 }
 template int min_run(std::vector<int> vector);
 
-<<<<<<< HEAD
 
-=======
->>>>>>> a77d234e6b74bb7f832fdbe0a0173793372fbab9
 __global__ void ReductionMax(int *d_a, int *d_partial_max)
 {
     //申请共享内存，存在于每个block中
@@ -141,12 +134,8 @@ T max_run(std::vector<T> vector){
     h_partial_max = (T*)malloc( blocksPerGrid*sizeof(T));
 
     for (int i=0; i < vector.size(); ++i)  h_a[i] = vector[i];
-<<<<<<< HEAD
     std::cout <<"\n"<< "Sorted" << std::endl;
     for(int i = 0; i< N;i++) printf("%d ", h_a[i]);
-=======
-//    for(int i = 0; i< N;i++) printf("%d ", h_a[i]);
->>>>>>> a77d234e6b74bb7f832fdbe0a0173793372fbab9
 
 
     //分配显存空间
