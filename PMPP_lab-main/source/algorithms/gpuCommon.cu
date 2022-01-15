@@ -4,8 +4,8 @@
 #include <iostream>
 #include "gpuCommon.h"
 
-const int threadsPerBlock=2;
-const int N = 10;
+const int threadsPerBlock=16;
+const int N = 100;
 const int blocksPerGrid = (N + threadsPerBlock -1) / threadsPerBlock;
 
 #define CUDA_CHECK_ERROR                                                       \
@@ -60,15 +60,14 @@ __global__ void ReductionMin(int *d_a, int *d_partial_min)
 
 
 template<typename T>
-T min_run(std::vector<T> vector){
+T min_run(std::vector<T> &vector){
     //申请host端内存及初始化
     T   *h_a,*h_partial_min;
     h_a = (T*)malloc( N*sizeof(T) );
     h_partial_min = (T*)malloc( blocksPerGrid*sizeof(T));
 
     for (int i=0; i < vector.size(); ++i)  h_a[i] = vector[i];
-    std::cout <<"\n"<< "Sorted" << std::endl;
-    for(int i = 0; i< N;i++) printf("%d ", h_a[i]);
+    //for(int i = 0; i< N;i++) printf("%d ", h_a[i]);
 
 
     //分配显存空间
@@ -93,8 +92,7 @@ T min_run(std::vector<T> vector){
     //printf("%d ", min);
     return std::move(min);
 }
-template int min_run(std::vector<int> vector);
-
+template int min_run(std::vector<int> &vector);
 
 __global__ void ReductionMax(int *d_a, int *d_partial_max)
 {
@@ -127,15 +125,14 @@ __global__ void ReductionMax(int *d_a, int *d_partial_max)
 
 
 template<typename T>
-T max_run(std::vector<T> vector){
+T max_run(std::vector<T> &vector){
     //申请host端内存及初始化
     T   *h_a,*h_partial_max;
     h_a = (T*)malloc( N*sizeof(T) );
     h_partial_max = (T*)malloc( blocksPerGrid*sizeof(T));
 
     for (int i=0; i < vector.size(); ++i)  h_a[i] = vector[i];
-    std::cout <<"\n"<< "Sorted" << std::endl;
-    for(int i = 0; i< N;i++) printf("%d ", h_a[i]);
+//    for(int i = 0; i< N;i++) printf("%d ", h_a[i]);
 
 
     //分配显存空间
@@ -160,4 +157,61 @@ T max_run(std::vector<T> vector){
     //printf("%d ", min);
     return std::move(max);
 }
-template int max_run(std::vector<int> vector);
+template int max_run(std::vector<int> &vector);
+
+__global__
+void dot2(int* a, int* b, int* c)
+{
+    int i = threadIdx.x + blockIdx.x * blockDim.x;
+    int cacheIdx = threadIdx.x;
+    float sum = 0.0;
+
+    while (i < N){
+        sum += a[i] * b[i];
+        i += blockDim.x * gridDim.x;
+    }
+    // c[cacheIdx] += sum;  //会出现不同步的问题
+    atomicAdd(&c[cacheIdx], sum);
+    __syncthreads();
+    // printf("%d %d %d %d\n", i, threadIdx.x, blockIdx.x, blockDim.x);
+}
+
+template<typename T>
+T dot_product_run(std::vector<T> &vec1, std::vector<T> &vec2){
+    T* a;
+    T* b;
+    T* c;
+
+    T* A;
+    T* B;
+    T* C;
+
+    int sz = N * sizeof(T);
+    a = (T*)malloc(sz);
+    b = (T*)malloc(sz);
+    c = (T*)malloc(sz);
+
+    cudaMalloc(&A, sz);
+    cudaMalloc(&B, sz);
+    cudaMalloc(&C, sz);
+    for (int i=0; i<N; i++)
+    {
+        a[i] = vec1[i];
+        b[i] = vec2[i];
+    }
+    cudaMemcpy(A, a, sz, cudaMemcpyHostToDevice);
+    cudaMemcpy(B, b, sz, cudaMemcpyHostToDevice);
+
+    dot2<<<blocksPerGrid,threadsPerBlock>>>(A, B, C);
+
+    cudaMemcpy(c, C, sz, cudaMemcpyDeviceToHost);
+
+    T sum_c = 0;
+    for (int i=0; i<N; i++)
+    {
+        sum_c += c[i];
+    }
+    return sum_c;
+
+}
+template int dot_product_run(std::vector<int> &vec1, std::vector<int> &vec2);
