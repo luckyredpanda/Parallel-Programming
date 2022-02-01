@@ -1,7 +1,7 @@
 ## Parallel-Programming
 21ws Parallel Programming labs TU Darmstadt
 
-###lab1:
+### lab1:
 1. Set the CUDA device
 2. Allocate necessary CPU and GPU memory (you have to use cudaMallocPitch() for GPU memory) 3. Transfer input matrices to the GPU
 4. Multiply matrices on the GPU
@@ -9,14 +9,14 @@
 6. Ceck your output matrix using the pmpp::test_gpu function.
 7. Compare the result matrix against the CPU version. Where do the differences come from?
 
-###lab2:
+### lab2:
 1. Your task is to implement Gaussian blur by using the given code to load an image, generate a Gaussian filter kernel, apply Gaussian blur to the image and save the blurred image to a file named out_cpu.ppm. Your program should takes two command-line parameters. The first one is the file name of the image that should be blurred and the second is the filter kernel size.
 2. Write a GPU implementation of the horizontal and vertical 1D convolution which works on a ppm image. For this task, you should only use global memory in your implementation. The ppm struct represents the pixels of an image in 4 bytes (1 byte per color channel, 4 color channels (RGBA)). The convolution should only be applied to the RGB color channels; you can ignore the alpha channel. Your implementation should be able to handle different filter kernel sizes. Finally, save the resulting image to a file named out_gpu_gmem.ppm.
 3. Copy your convolution CUDA kernels from task 2 and modify them to use shared memory for the pixel data. For an idea on how shared memory can help with convolution, see the whitepaper about the convolutionSeparable CUDA sample. The blurred image should be written to a file named out_gpu_smem.ppm.
 4: Copy your convolution CUDA kernels from task 2 and modify them to access the image in global memory and the filter kernel in constant memory. Because the amount of constant memory is determined at compile-time, you may restrict the maximum filter kernel size (e.g. 127). Save the blurred image to a file named out_gpu_cmem.ppm.
 5: Copy your convolution CUDA kernels from task 2 and modify them such that they combine all of the optimizations from the previous tasks: cache pixel data in shared memory and access the filter kernel in constant memory. Save the blurred image to a file named out_gpu_all.ppm.
 
-###final project:
+### final project:
 1. There’s a lot of noise in the code-base that don’t have do deal with. 
 2. Find examples of how to write algorithms in Increaser.hpp, QuickSorter.hpp, Nopper.hpp, Reorderer.hpp, and SelectionSorter.hpp.
 3. Students should add classes that encapsulate GPU kernels: Start with doing nothing and just calling a nop-kernel. 
