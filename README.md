@@ -42,17 +42,22 @@ Record Table
 |RO|Reorderer|1.7526e-06 sec/2.4009e-06 sec/6.80051e-05 sec/4.78822e-04 sec|
 |SS|SelectionSorter|2.121e-06 sec/2.0785e-06 sec/4.50931e-03 sec/8.00362e-02 sec|
 
-|function_A&function_B|time(A)|time(B)|size(vec_A)|size(vec_B)|time|
-|---|---|---|---|---|---|
-|NK + MIK||||||
-|MAK + SPK||||||
-|NK + SPK||||||
-|MAK + MIK||||||
-|NK + N||||||
-|MIK + I||||||
-|MAK + QS||||||
-|SPK + RA||||||
-|NK + RM||||||
-|MIK + RO||||||
-|MAK + SS||||||
+|FunA & FunB|timeA+timeB/s|test_time/s|Relative error|
+|---|---|---|---|
+|MAK+NK|4.549e-04|4.640e.04|2%|
+|SPK+NK|4.559e-04|4.702e-04|3.1%|
+|MIK + NK|4.554e-04|4.633e-04|1.7%|
+|N + NK|2.38e-06|3.885e-06|63.2%|
+|I + MIK|4.579e-04|4.745e-04|3.6%|
+|QS+MAK|4.426e-04|4.590e-04|3.7%|
+|SS+MAK|4.444e-04|4.395e-04|-1.1%|
+|RO + SPK|4.589e-04|4.5046e-04|-1.8%|
+|SS+SPK|5.003e-03|4.700e-03|-6%|
+
+**Conclusion:**
+1. Except for N+NK, the relative errors of the experimental results of all other groups are less than 10%, and it can be considered that the method of estimating the function combination by the sum of each single function is feasible.
+
+2. We find that the relative error is positive for all GPU-to-GPU combinations,We think there may be other factors to consider in the GPU-to-GPU combination.
+
+3. We observe that the relative error is positive for all experiments including the nop-kernel. Especially in the N+NK experiment, the error is as high as 63.2%.I think it can be deduced that there is still something not taken into account in the modeling with nop-kernel.
 
